@@ -2,10 +2,12 @@ package br.com.course.config;
 
 import br.com.course.entities.Category;
 import br.com.course.entities.Order;
+import br.com.course.entities.Product;
 import br.com.course.entities.User;
 import br.com.course.entities.enuns.OrderStatus;
 import br.com.course.repositories.CategoryRepository;
 import br.com.course.repositories.OrderRepository;
+import br.com.course.repositories.ProductRepository;
 import br.com.course.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -28,6 +30,9 @@ public class TestConfig implements CommandLineRunner{
   @Autowired
   private CategoryRepository categoryRepository;
 
+  @Autowired
+  private ProductRepository productRepository;
+
   @Override
   public void run(String... args) throws Exception{
     var u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
@@ -39,9 +44,16 @@ public class TestConfig implements CommandLineRunner{
     var o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.WAITING_PAYMENT, u1);
     orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 
-    Category cat1 = new Category(null, "Electronics");
-    Category cat2 = new Category(null, "Books");
-    Category cat3 = new Category(null, "Computers");
+    var cat1 = new Category(null, "Electronics");
+    var cat2 = new Category(null, "Books");
+    var cat3 = new Category(null, "Computers");
     categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+
+    var p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+    var p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+    var p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+    var p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+    var p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+    productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
   }
 }

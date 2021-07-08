@@ -5,7 +5,7 @@ import br.com.course.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Transient;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,12 +15,12 @@ public class UserService implements Serializable{
   @Autowired
   private UserRepository repository;
 
-  @Transient
+  @Transactional
   public List<User> findAll(){
     return repository.findAll();
   }
 
-  @Transient
+  @Transactional
   public User findById(Integer id){
     return repository.findById(id).get();
   }
