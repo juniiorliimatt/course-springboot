@@ -30,7 +30,21 @@ public class UserService implements Serializable{
     return repository.save(user);
   }
 
+  @Transactional
   public void delete(Integer id){
     repository.deleteById(id);
+  }
+
+  @Transactional
+  public User update(Integer id, User user){
+    var entity = repository.getById(id);
+    updateData(entity, user);
+    return repository.save(entity);
+  }
+
+  private void updateData(User entity, User user){
+    entity.setName(user.getName());
+    entity.setEmail(user.getEmail());
+    entity.setPhone(user.getPhone());
   }
 }

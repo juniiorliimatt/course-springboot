@@ -43,4 +43,9 @@ public class UserResource implements Serializable{
     service.delete(id);
     return ResponseEntity.noContent().build();
   }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<User> update(@PathVariable Integer id, @RequestBody User user){
+    return ResponseEntity.ok().body(service.update(id, user));
+  }
 }
