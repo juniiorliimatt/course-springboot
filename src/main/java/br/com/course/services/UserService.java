@@ -2,8 +2,11 @@ package br.com.course.services;
 
 import br.com.course.entities.User;
 import br.com.course.repositories.UserRepository;
+import br.com.course.services.exceptions.DataBaseException;
 import br.com.course.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -33,7 +36,13 @@ public class UserService implements Serializable{
 
   @Transactional
   public void delete(Integer id){
-    repository.deleteById(id);
+    try{
+      repository.deleteById(id);
+    }catch(EmptyResultDataAccessException e){
+      throw new ResourceNotFoundException(id);
+    }catch(DataIntegrityViolationException e){
+      throw new DataBaseException(e.getMessage());
+    }
   }
 
   @Transactional
