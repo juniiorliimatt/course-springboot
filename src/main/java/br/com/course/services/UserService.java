@@ -29,4 +29,8 @@ public class UserService implements Serializable{
   public User save(User user){
     return repository.save(user);
   }
+
+  public void delete(Integer id){
+    repository.deleteById(id);
+  }
 }

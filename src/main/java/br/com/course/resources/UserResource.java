@@ -37,4 +37,10 @@ public class UserResource implements Serializable{
             .buildAndExpand(user.getId()).toUri();
     return ResponseEntity.created(uri).body(service.save(user));
   }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> delete(@PathVariable Integer id){
+    service.delete(id);
+    return ResponseEntity.noContent().build();
+  }
 }
