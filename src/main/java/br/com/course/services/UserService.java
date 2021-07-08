@@ -24,4 +24,9 @@ public class UserService implements Serializable{
   public User findById(Integer id){
     return repository.findById(id).get();
   }
+
+  @Transactional
+  public User save(User user){
+    return repository.save(user);
+  }
 }
