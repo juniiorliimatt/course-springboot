@@ -1,14 +1,8 @@
 package br.com.course.config;
 
-import br.com.course.entities.Category;
-import br.com.course.entities.Order;
-import br.com.course.entities.Product;
-import br.com.course.entities.User;
+import br.com.course.entities.*;
 import br.com.course.entities.enuns.OrderStatus;
-import br.com.course.repositories.CategoryRepository;
-import br.com.course.repositories.OrderRepository;
-import br.com.course.repositories.ProductRepository;
-import br.com.course.repositories.UserRepository;
+import br.com.course.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +26,9 @@ public class TestConfig implements CommandLineRunner{
 
   @Autowired
   private ProductRepository productRepository;
+
+  @Autowired
+  private OrderItemRepository orderItemRepository;
 
   @Override
   public void run(String... args) throws Exception{
@@ -63,5 +60,11 @@ public class TestConfig implements CommandLineRunner{
     p4.getCategories().add(cat3);
     p5.getCategories().add(cat2);
     productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+
+    var oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+    var oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+    var oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+    var oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+    orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
   }
 }
