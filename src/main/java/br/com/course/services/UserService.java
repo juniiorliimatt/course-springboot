@@ -2,6 +2,7 @@ package br.com.course.services;
 
 import br.com.course.entities.User;
 import br.com.course.repositories.UserRepository;
+import br.com.course.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class UserService implements Serializable{
 
   @Transactional
   public User findById(Integer id){
-    return repository.findById(id).get();
+    return repository.findById(id).orElseThrow(()->new ResourceNotFoundException(id));
   }
 
   @Transactional

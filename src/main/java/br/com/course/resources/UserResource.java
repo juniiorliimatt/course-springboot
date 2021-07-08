@@ -30,7 +30,7 @@ public class UserResource implements Serializable{
 
   @PostMapping
   public ResponseEntity<User> save(@RequestBody User user){
-    URI uri =
+    var uri =
         ServletUriComponentsBuilder
             .fromCurrentRequest()
             .path("/{id}")
